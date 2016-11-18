@@ -1,74 +1,74 @@
-#include <iostream>
 #pragma once
+#include <iostream>
+#include <cstdio>
+#include <new>
+#include <stdexcept>  
 
 using namespace std;
 
 template <class TDATO>
-
-class a_node 
+class mynodo
 {
     private:
     
-    TDATO dato_;
-    a_node<TDATO>* next_;
-
+    TDATO dato_; 
+    mynodo<TDATO>* next_;
+        
     public:
     
-    a_node(void);
-    a_node(TDATO dato);
-    ~a_node(void);
-    void set_next(a_node<TDATO>* next);
-	a_node<TDATO>* get_next(void);
-	void set_dato(TDATO dato);
-	TDATO get_dato(void);
+    mynodo(void);
+    mynodo(TDATO dato);
+    ~mynodo(void);
+    mynodo<TDATO>* get_next(void);
+    TDATO get_dato(void);
+    void set_next(mynodo<TDATO>* next);
+    void set_dato(TDATO dato);
     ostream& write(ostream& os);
 };
 
-
 template <class TDATO>
-a_node<TDATO>::a_node(void):     //Constructor
-next_(NULL),
-dato_()
+mynodo<TDATO>::mynodo(void):
+dato_(),
+next_(NULL)
 {}
 
 template <class TDATO>
-a_node<TDATO>::a_node(TDATO dato):       //Constructor de copia
-next_(NULL),
-dato_(dato)
+mynodo<TDATO>::mynodo(TDATO dato):
+dato_(dato),
+next_(NULL)
 {}
 
 template <class TDATO>
-a_node<TDATO>::~a_node(void)     //Destructor
+mynodo<TDATO>::~mynodo(void)
+{}
+
+
+template <class TDATO>
+mynodo<TDATO>* mynodo<TDATO>::get_next(void)
 {
-    next_ = NULL;
+    return next_;
 }
 
 template <class TDATO>
-void a_node<TDATO>::set_next(a_node<TDATO>* next)       //Metodo que nos situa en el nodo siguiente
-{
-	next_ = next;
-}
-
-template <class TDATO>
-a_node<TDATO>* a_node<TDATO>::get_next(void)        //Metodo que nos devuelve el nodo siguiente
-{
-	return next_;
-}
-
-template <class TDATO>
-void a_node<TDATO>::set_dato(TDATO dato)        //Metodo que inserta un elemento en el nodo
-{
-    dato_ = dato;
-}
-
-template <class TDATO>
-TDATO a_node<TDATO>::get_dato(void)     //Metodo que nos devuelve el elemento de un nodo
+TDATO mynodo<TDATO>::get_dato(void)
 {
     return dato_;
 }
 
 template <class TDATO>
-ostream& a_node<TDATO>::write(ostream& os)
+void mynodo<TDATO>::set_next(mynodo<TDATO>* next)
+{
+    next_ = next;
+}
+
+template <class TDATO>
+void mynodo<TDATO>::set_dato(TDATO dato)
+{
+    dato_ = dato;
+}
+
+template <class TDATO>
+ostream& mynodo<TDATO>::write(ostream& os)
 {
     os << dato_ << " ";
 }

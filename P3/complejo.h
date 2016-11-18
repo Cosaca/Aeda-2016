@@ -1,45 +1,46 @@
-#include <cstdlib>
-#include <iostream>
-#include <cmath>
-#include <cstring>
-#include <string>
 #pragma once
+#include "real.h"
+#include <cstdlib>
+#include <cmath>
+#include "numero.h"
 
-#define EPSILON 0.01
-
-using namespace std;
-
-class complejo 
+class complejo:public numero_t 
 {
   private:
   
-  double r_;
-  double i_;
-  double mod_;
-  
+  real r;                                                         //Parte real                                                         
+  real i;                                                         //Parte imaginaria
+  real m;                                                         //Modulo
+     
   public:
   
-  complejo(void);                                     //Constructor por defecto
-  complejo(double re, double im);                     //Constructor de asignación
-  complejo(const complejo& n);                        //Constructor de copia
-  complejo(double n);
-
-  ~complejo(void);                                    //Destructor
+  complejo(void);                                                 //Constructor por defecto
+  complejo(real re, real im);                                     //Constructor de asignación
+  complejo(float re, float im);                                   //Constructor de asignación
+  complejo(const complejo& n);                                    //Constructor de copia
+  ~complejo(void);                                                //Cestructor
   
-  double get_r(void) const;
-  double get_i(void) const;
-  double get_mod(void) const;
+  real get_r(void) const;
+  real get_i(void) const;
+  real get_m(void) const;
   
-  complejo& operator=(const complejo&);   //Sobrecarga de operadores
-  complejo& operator=(int n);             //Método para poder multiplicar por -1;
-  complejo& operator=(const string a);    //Operador de asignación para darle un valor desde una cadena del tipo X+Yi
+  virtual const entero toEntero(void) const;                      //Metodos copias de numero
+  virtual const real toReal(void) const;
+  virtual const racional toRacional(void) const;
+  virtual const complejo toComplejo(void) const;
   
-  friend complejo operator+(const complejo&, const complejo&);    //Operadores aritméticos
+  virtual ostream& toStream(ostream& sout) const;                 //Escribe un numero al flujo sout
+  virtual istream& fromStream(istream& sin);                      //Lee un numero desde un flujo sin
+  
+  complejo& operator=(const complejo&);                           //Sobrecarga operadores
+  complejo& operator=(const string a);                            //Operador de asignación para darle un valor desde una cadena del tipo X+Yi
+  
+  friend complejo operator+(const complejo&, const complejo&);    //Operadores aritmeticos
   friend complejo operator-(const complejo&, const complejo&);
   friend complejo operator*(const complejo&, const complejo&);
   friend complejo operator/(const complejo&, const complejo&);
   
-  friend bool operator==(const complejo&, const complejo&);         //Operadores de comparación
+  friend bool operator==(const complejo&, const complejo&);       //Operadores de comparación
   friend bool operator!=(const complejo&, const complejo&);
   friend bool operator<(const complejo&, const complejo&);
   friend bool operator>(const complejo&, const complejo&);
@@ -47,5 +48,6 @@ class complejo
   friend bool operator>=(const complejo&, const complejo&);
   
   friend ostream& operator<<(ostream&, const complejo&);          //Entrada-Salida
-  friend istream& operator>>(istream&,  complejo&);
+  friend istream& operator>>(istream&, const complejo&);
+  
 };

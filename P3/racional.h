@@ -1,48 +1,56 @@
+#pragma once
 #include <iostream>
 #include <cstring>
 #include <string>
 #include <cstdlib>
-#include <cmath>
-#pragma once
 
-using namespace std;
+#include "entero.h"
+#include "numero.h"
 
-class rational 
-{
-    private:
-  
-    int numerador_;
-    int denominador_;
-    int mcd_;
+
+class racional:public numero_t {
+
+private:
+  entero numerador;
+  entero denominador;
+  entero mcd;
      
-    public:
+public:
   
-    rational(void);                               //Constructor por defecto
-    rational(int num, int den);                   //Constructor de asignación
-    rational(const rational& n);                  //Constructor de copia
-    rational(double n);
-    ~rational(void);                              //Destructor
+  racional(void);
+  racional(entero num, entero den);
+  racional(const racional& n);
+  racional(int dio, int dir);
+  ~racional(void);
   
-    int get_numerador(void) const;
-    int get_denominador(void) const;
-    int m_d(void) const;                          //Máximo común divisor
+  entero get_numerador(void) const;
+  entero get_denominador(void) const;
+  entero m_d(void) const;
   
-    rational& operator=(const rational&);         //Sobrecarga en los operadores
-    rational& operator=(const string cad);
-    
-    friend rational operator+(const rational&, const rational&);  //Operadores aritméticos
-    friend rational operator-(const rational&, const rational&);
-    friend rational operator*(const rational&, const rational&);
-    friend rational operator/(const rational&, const rational&);
+  virtual const entero toEntero(void) const;
+  virtual const real toReal(void) const;        
+  virtual const racional toRacional(void) const;
+  virtual const complejo toComplejo(void) const;
+  virtual ostream& toStream(ostream& sout) const;  
+  virtual istream& fromStream(istream& sin);
   
-    friend bool operator==(const rational&, const rational&);       //Operadores de comparación
-    friend bool operator!=(const rational&, const rational&);
-    friend bool operator<(const rational&, const rational&);
-    friend bool operator>(const rational&, const rational&);
-    friend bool operator<=(const rational&, const rational&);
-    friend bool operator>=(const rational&, const rational&);
+  racional& operator=(const racional&);
+  racional& operator=(const string cad);
+  
+  friend racional operator+(const racional&, const racional&);
+  friend racional operator-(const racional&, const racional&);
+  friend racional operator*(const racional&, const racional&);
+  friend racional operator/(const racional&, const racional&);
+  
+  friend bool operator==(const racional&, const racional&);
+  friend bool operator!=(const racional&, const racional&);
+  friend bool operator<(const racional&, const racional&);
+  friend bool operator>(const racional&, const racional&);
+  friend bool operator<=(const racional&, const racional&);
+  friend bool operator>=(const racional&, const racional&);
+  
 
-    friend ostream& operator<<(ostream&, const rational&);        //Entrada-Salida
-    friend istream& operator>>(istream&,  rational&);
+  friend ostream& operator<<(ostream&, const racional&);
+  friend istream& operator>>(istream&, const racional&);
   
 };
